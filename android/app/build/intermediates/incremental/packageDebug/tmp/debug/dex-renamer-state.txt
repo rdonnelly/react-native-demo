@@ -1,0 +1,4 @@
+#Thu Mar 29 16:53:54 EDT 2018
+base.0=/Users/rdonnelly/Projects/DL/react-native-demo/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
