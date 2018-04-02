@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -13,6 +13,7 @@ class HomeScreen extends React.Component {
     };
 
     this.incrementCounter = this.incrementCounter.bind(this);
+    this.renderButton = this.renderButton.bind(this);
   }
 
   incrementCounter() {
@@ -21,17 +22,36 @@ class HomeScreen extends React.Component {
     }));
   }
 
+  renderButton() {
+    if (Platform.OS === 'android') {
+      return (
+        <TouchableNativeFeedback
+          onPress={ this.incrementCounter }
+          background={ TouchableNativeFeedback.Ripple('rgba(255, 255, 255, 0.5)', false) }
+        >
+          <View style={ styles.button }>
+            <Text style={ styles.buttonText }>Tap Me</Text>
+          </View>
+      </TouchableNativeFeedback>
+      );
+    }
+
+    return (
+      <TouchableOpacity
+        onPress={ this.incrementCounter }
+        style={ styles.button }
+      >
+        <Text style={ styles.buttonText }>Tap Me</Text>
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Hey Detroit Labs!</Text>
-        <Text style={styles.text}>{ this.state.counter }</Text>
-        <TouchableOpacity
-          onPress={ this.incrementCounter }
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Tap Me</Text>
-        </TouchableOpacity>
+      <View style={ styles.container }>
+        <Text style={ styles.text }>Hey Detroit Labs!</Text>
+        <Text style={ styles.text }>{ this.state.counter }</Text>
+        { this.renderButton() }
       </View>
     );
   }
