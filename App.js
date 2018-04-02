@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
+import { Platform, SafeAreaView, SectionList, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -58,11 +58,40 @@ class HomeScreen extends React.Component {
 }
 
 class OtherScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sections: [
+        { title: 'A', data: ['Aaron', 'Ace']},
+        { title: 'B', data: ['Beilein', 'Brian']},
+        { title: 'C', data: ['Charles', 'Chani']},
+        { title: 'D', data: ['Devin', 'Duncan']},
+        { title: 'E', data: ['Emma']},
+        { title: 'F', data: ['Frank']},
+        { title: 'J', data: ['Jackson', 'James', 'Jeff', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie'] },
+        { title: 'K', data: ['Ki'] },
+        { title: 'L', data: ['Lucas', 'Luke'] },
+        { title: 'M', data: ['Maggie'] },
+        { title: 'O', data: ['Owen'] },
+        { title: 'P', data: ['Paul'] },
+        { title: 'R', data: ['Ryan'] },
+        { title: 'T', data: ['Toby'] },
+        { title: 'V', data: ['Victor'] },
+      ],
+    };
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Other Stuff!</Text>
-      </View>
+      <SafeAreaView style={styles.listContainer}>
+        <SectionList
+          sections={ this.state.sections }
+          renderItem={ ({item}) => <Text style={styles.item}>{item}</Text> }
+          renderSectionHeader={ ({section}) => <Text style={styles.sectionHeader}>{section.title}</Text> }
+          keyExtractor={ (item, index) => index }
+        />
+      </SafeAreaView>
     );
   }
 }
@@ -112,5 +141,20 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 24,
+  },
+  listContainer: {
+    flex: 1,
+  },
+  sectionHeader: {
+    backgroundColor: '#eeeeee',
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  item: {
+    fontSize: 20,
+    height: 44,
+    padding: 10,
   },
 });
